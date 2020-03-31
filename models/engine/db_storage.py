@@ -12,6 +12,7 @@ from models.user import User  # import class User
 from models.amenity import Amenity  # import class Amenity
 from models.place import Place  # import class Place
 from models.review import Review  # import class Review
+import hashlib
 
 
 # TODO Create class DBStorage and empty methods
@@ -24,12 +25,12 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.\
-                 format(getenv('HBNB_MYSQL_USER'),
-                        getenv('HBNB_MYSQL_PWD'),
-                        getenv('HBNB_MYSQL_HOST'),
-                        getenv('HBNB_MYSQL_DB')),
-                  pool_pre_ping=True)
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+                                      format(getenv('HBNB_MYSQL_USER'),
+                                             getenv('HBNB_MYSQL_PWD'),
+                                             getenv('HBNB_MYSQL_HOST'),
+                                             getenv('HBNB_MYSQL_DB')),
+                                      pool_pre_ping=True)
 
         if getenv('HBNB_ENV') == 'test':
             """Drop all tables"""
@@ -44,10 +45,13 @@ class DBStorage:
             name = eval(cls)
             for instance in self.__session.query(name):
                 key = "{}.{}".format(cls, instance.id)
+                if cls == "User":
+                    instance.password = hashlib.md5(
+                        instance.password.encode()).hexdigest().lower()
                 results[key] = instance
             return results
         else:
-            #print(Base.metadata.tables.keys())
+            # print(Base.metadata.tables.keys())
             return results
 
     def new(self, obj):
