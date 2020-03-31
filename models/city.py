@@ -13,7 +13,7 @@ class City(BaseModel, Base):
     __tablename__ = "cities"  # TODO change simple attr to table cities
     state_id = Column(
         String(60),
-        ForeignKey('state.id'),
+        ForeignKey('states.id'),
         nullable=False
     )
     name = Column(
