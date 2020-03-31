@@ -4,7 +4,7 @@ DBStorage module
 """
 from os import getenv
 from sqlalchemy import (create_engine)
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import BaseModel, Base  # import class model
 from models.state import State  # import class State
 from models.city import City  # import class City
@@ -42,7 +42,8 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
         Base.metadata.create_all(self.__engine)
-        self.__session = Session(self.__engine)
+        Session = sessionmaker(self.__engine)
+        self.__session = Session()
 
     def all(self, cls=None):
         results = {}
@@ -72,7 +73,11 @@ class DBStorage:
         self.__session.commit()
 
     def delete(self, obj=None):
-        pass
+        if obj is not None:
+            self.__session.delete(obj)
 
     def reload(self):
-        pass
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
