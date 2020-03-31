@@ -23,6 +23,11 @@ class DBStorage:
 
     __engine = None
     __session = None
+    __tables = [
+        "User",
+        "State",
+        "City"
+    ]
 
     def __init__(self):
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
@@ -51,7 +56,13 @@ class DBStorage:
                 results[key] = instance
             return results
         else:
-            # print(Base.metadata.tables.keys())
+            for table in self.__tables:
+                for instance in self.__session.query(eval(table)):
+                    key = "{}.{}".format(table, instance.id)
+                    if table == "User":
+                        instance.password = hashlib.md5(
+                            instance.password.encode()).hexdigest().lower()
+                    results[key] = instance
             return results
 
     def new(self, obj):
