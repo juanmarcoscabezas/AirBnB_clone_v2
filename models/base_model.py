@@ -62,7 +62,7 @@ class BaseModel:
             returns a string of class name, id, and dictionary
         """
         new_dict = self.__dict__.copy()
-        if new_dict['_sa_instance_state']:
+        if '_sa_instance_state' in new_dict:
             del new_dict['_sa_instance_state']
         return "[{}] ({}) {}".format(
             type(self).__name__, self.id, new_dict)
@@ -88,8 +88,8 @@ class BaseModel:
         my_dict["__class__"] = str(type(self).__name__)
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
-        if my_dict["_sa_instance_state"]:
-            del my_dict["_sa_instance_state"]
+        if '_sa_instance_state' in my_dict:
+            del my_dict['_sa_instance_state']
         return my_dict
 
     def delete(self):

@@ -29,7 +29,7 @@ class FileStorage:
         if cls is not None:
             objs = {}
             for key, val in self.__objects.items():
-                if cls.__name__ == type(val).__name__:
+                if cls == type(val).__name__:
                     objs[key] = val
             return objs
         return self.__objects
