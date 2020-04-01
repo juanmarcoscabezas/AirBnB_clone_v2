@@ -26,7 +26,8 @@ class DBStorage:
     __tables = [
         "User",
         "State",
-        "City"
+        "City",
+        "Place"
     ]
 
     def __init__(self):
@@ -55,18 +56,18 @@ class DBStorage:
             name = eval(cls)
             for instance in self.__session.query(name):
                 key = "{}.{}".format(cls, instance.id)
-                if cls == "User":
-                    instance.password = hashlib.md5(
-                        instance.password.encode()).hexdigest().lower()
+                """if cls == "User":
+                        instance.password = hashlib.md5(
+                        instance.password.encode()).hexdigest().lower()"""
                 results[key] = instance
             return results
         else:
             for table in self.__tables:
                 for instance in self.__session.query(eval(table)):
                     key = "{}.{}".format(table, instance.id)
-                    if table == "User":
+                    """if table == "User":
                         instance.password = hashlib.md5(
-                            instance.password.encode()).hexdigest().lower()
+                        instance.password.encode()).hexdigest().lower()"""
                     results[key] = instance
             return results
 
@@ -90,6 +91,7 @@ class DBStorage:
         """ Reloads dabatase session
         """
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
