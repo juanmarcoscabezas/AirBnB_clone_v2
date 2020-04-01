@@ -27,7 +27,8 @@ class DBStorage:
         "User",
         "State",
         "City",
-        "Place"
+        "Place",
+        "Review"
     ]
 
     def __init__(self):
@@ -53,9 +54,10 @@ class DBStorage:
         """
         results = {}
         if cls is not None:
-            name = eval(cls)
-            for instance in self.__session.query(name):
-                key = "{}.{}".format(cls, instance.id)
+            # name = eval(cls)
+            # TODO cls always is a class
+            for instance in self.__session.query(cls):
+                key = "{}.{}".format(cls.__name__, instance.id)
                 """if cls == "User":
                         instance.password = hashlib.md5(
                         instance.password.encode()).hexdigest().lower()"""

@@ -142,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
             if args[0] not in self.all_classes:
                 raise NameError()
 
-            objects = storage.all(args[0])
+            objects = storage.all(eval(args[0]))  # TODO args is class always
             for key in objects:
                 name = key.split('.')
                 if name[0] == args[0]:

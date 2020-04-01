@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
+from models.review import Review
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
@@ -66,3 +68,5 @@ class Place(BaseModel, Base):
         Float,
         nullable=True
     )
+    # TODO create relation with Review
+    reviews = relationship("Review", backref="place", cascade="all, delete")
