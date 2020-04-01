@@ -2,9 +2,15 @@
 """This is the place class"""
 from models.base_model import BaseModel, Base
 from models.review import Review
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from models.amenity import Amenity
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
+
+place_amenity = Table('place_amenity', Base.metadata,
+    Column('place_id', String(60), ForeignKey('places.id'), nullable=False),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'), nullable=False)
+)
 
 class Place(BaseModel, Base):
     """This is the class for Place
@@ -70,3 +76,4 @@ class Place(BaseModel, Base):
     )
     # TODO create relation with Review
     reviews = relationship("Review", backref="place", cascade="all, delete")
+    amenities = relationship("Amenity", secondary=place_amenity)  
