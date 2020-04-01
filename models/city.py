@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """This is the city class"""
 from models.base_model import BaseModel, Base
+from models.place import Place
 from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class City(BaseModel, Base):
@@ -20,3 +22,5 @@ class City(BaseModel, Base):
         String(128),
         nullable=False
     )
+
+    places = relationship("Place", backref="cities", cascade="all, delete")
