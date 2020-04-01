@@ -30,6 +30,8 @@ class DBStorage:
     ]
 
     def __init__(self):
+        """ Initilize the db storage
+        """
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(getenv('HBNB_MYSQL_USER'),
                                              getenv('HBNB_MYSQL_PWD'),
@@ -38,7 +40,7 @@ class DBStorage:
                                       pool_pre_ping=True)
 
         if getenv('HBNB_ENV') == 'test':
-            """Drop all tables"""
+            """ Drop all tables"""
             Base.metadata.drop_all(self.__engine)
 
         Base.metadata.create_all(self.__engine)
@@ -46,6 +48,8 @@ class DBStorage:
         self.__session = Session()
 
     def all(self, cls=None):
+        """  Shows all rows in a table
+        """
         results = {}
         if cls is not None:
             name = eval(cls)
@@ -67,16 +71,24 @@ class DBStorage:
             return results
 
     def new(self, obj):
+        """ Creates a new rigister
+        """
         self.__session.add(obj)
 
     def save(self):
+        """ Saves all current changes
+        """
         self.__session.commit()
 
     def delete(self, obj=None):
+        """ Removes an register
+        """
         if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
+        """ Reloads dabatase session
+        """
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
