@@ -17,4 +17,4 @@ class Amenity(BaseModel, Base):
         nullable=False
     )
 
-    #place_amenities = relationship("Place", backref="amenity")
+    # place_amenities = relationship("Place", backref="amenity")
