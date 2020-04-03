@@ -16,5 +16,3 @@ class Amenity(BaseModel, Base):
         String(128),
         nullable=False
     )
-
-    # place_amenities = relationship("Place", backref="amenity")
