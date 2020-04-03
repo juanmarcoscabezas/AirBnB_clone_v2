@@ -62,30 +62,7 @@ class TestState(unittest.TestCase):
 
     def test_to_dict_State(self):
         """test if dictionary works"""
-        self.assertEqual('to_dict' in dir(self.state), True)
-
-    """@unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") != 'db', "Don't test this")
-    def test_to_db(self):
-        test if is inserted in db
-        HOST = os.getenv('HBNB_MYSQL_HOST')
-        USER = os.getenv('HBNB_MYSQL_USER')
-        PASSWD = os.getenv('HBNB_MYSQL_PWD')
-        DATABASE = os.getenv('HBNB_MYSQL_DB')
-
-        db = MySQLdb.connect(host=HOST, port=3306,
-                                 user=USER,
-                                 passwd=PASSWD,
-                                 db=DATABASE)
-        cursor = db.cursor()
-        cursor.execute("SELECT COUNT(*) FROM states")
-        first = cursor.fetchone()
-        new_state = State(name="Cali")
-        new_state.save()
-        cursor.execute("SELECT COUNT(*) FROM states")
-        second = cursor.fetchone()
-        print(first == second)
-        print(first, second)"""
-        
+        self.assertEqual('to_dict' in dir(self.state), True)       
 
 
 if __name__ == "__main__":
