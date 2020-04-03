@@ -24,7 +24,6 @@ class TestPlace(unittest.TestCase):
         cls.place.price_by_night = 10
         cls.place.latitude = 160.0
         cls.place.longitude = 120.0
-        cls.place.amenity_ids = ["1324-lksdjkl"]
 
     @classmethod
     def teardown(cls):
@@ -63,7 +62,6 @@ class TestPlace(unittest.TestCase):
         self.assertTrue('price_by_night' in self.place.__dict__)
         self.assertTrue('latitude' in self.place.__dict__)
         self.assertTrue('longitude' in self.place.__dict__)
-        self.assertTrue('amenity_ids' in self.place.__dict__)
 
     def test_is_subclass_Place(self):
         """test if Place is subclass of Basemodel"""
@@ -81,7 +79,6 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(type(self.place.price_by_night), int)
         self.assertEqual(type(self.place.latitude), float)
         self.assertEqual(type(self.place.longitude), float)
-        self.assertEqual(type(self.place.amenity_ids), list)
 
     @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == 'db', "Don't test this")
     def test_save_Place(self):
