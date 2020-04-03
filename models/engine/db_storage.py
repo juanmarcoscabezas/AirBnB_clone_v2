@@ -59,18 +59,12 @@ class DBStorage:
             # TODO cls always is a class
             for instance in self.__session.query(cls):
                 key = "{}.{}".format(cls.__name__, instance.id)
-                """if cls == "User":
-                        instance.password = hashlib.md5(
-                        instance.password.encode()).hexdigest().lower()"""
                 results[key] = instance
             return results
         else:
             for table in self.__tables:
                 for instance in self.__session.query(eval(table)):
                     key = "{}.{}".format(table, instance.id)
-                    """if table == "User":
-                        instance.password = hashlib.md5(
-                        instance.password.encode()).hexdigest().lower()"""
                     results[key] = instance
             return results
 
