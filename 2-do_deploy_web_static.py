@@ -72,7 +72,7 @@ def do_deploy(archive_path):
         run(command)
 
         # create symbolic link
-        command = "ln -s " + path
+        command = "ln -s /data/web_static/releases/{}/ ".format(name)
         command += "/data/web_static/current"
         run(command)
     except Exception:
