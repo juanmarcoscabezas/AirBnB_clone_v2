@@ -23,7 +23,7 @@ def c_text(text):
     """Print 'c <text>' text will be replace with
        whatever word
     """
-    return 'c {}'.format(text.replace("_", " "))
+    return 'C {}'.format(text.replace("_", " "))
 
 
 @app.route('/python', strict_slashes=False)
@@ -31,7 +31,7 @@ def c_text(text):
 def python_txt(text='is cool'):
     """Print python something
     """
-    return 'python {}'.format(text.replace("_", " "))
+    return 'Python {}'.format(text.replace("_", " "))
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
