@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* 
+Theme Name: AirBnb Clone
+Theme URL: None
+Author: Joshua Martinez
+Version: 0.0.1
+*/
+header {
+    background-color: #FFFFFF;
+    height: 70px;
+    width: 100%;
+    border: None;
+    border-bottom: 1px solid #CCCCCC;
+}
+.logo {
+    background-image: url(../images/logo.png);
+    background-repeat: no-repeat;
+    margin-left: 20px;
+    height: 100%;
+}

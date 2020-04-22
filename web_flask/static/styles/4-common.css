@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* 
+Theme Name: AirBnb Clone
+Theme URL: None
+Author: Joshua Martinez
+Version: 0.0.1
+*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #484848;
+    font-size: 14px;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    /* height: 100vh; */
+    margin-bottom: 1rem;
+}
+.container{
+    max-width: 1000px;
+    margin: 30px auto 30px auto;
+    /* border: 1px solid #000; */
+    width: 100%;
+}
+ul, li {
+    text-decoration: none;
+    list-style: none;
+}
