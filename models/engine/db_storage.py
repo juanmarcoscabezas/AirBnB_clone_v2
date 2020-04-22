@@ -56,6 +56,8 @@ class DBStorage:
         results = {}
         if cls is not None:
             # TODO cls always is a class
+            if type(cls) == str:
+                cls = eval(cls)
             for instance in self.__session.query(cls):
                 key = "{}.{}".format(cls.__name__, instance.id)
                 results[key] = instance
