@@ -81,6 +81,7 @@ def show_cities():
     states = storage.all("State")
     return render_template('8-cities_by_states.html', states=states)
 
+
 @app.route('/states', strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
 def states_list(id=None):
