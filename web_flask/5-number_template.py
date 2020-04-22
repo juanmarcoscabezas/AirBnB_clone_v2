@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # Print something depend of route with Flask framework and render template
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
