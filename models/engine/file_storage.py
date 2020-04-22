@@ -74,3 +74,8 @@ class FileStorage:
                 if key == instance_key:
                     del cpy_objects[instance_key]
             self.__objects = cpy_objects
+
+    def close(self):
+        """Close connection
+        """
+        self.reload()

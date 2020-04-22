@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """This is the place class"""
+import models
 from models.base_model import BaseModel, Base
 from models.review import Review
 from models.amenity import Amenity
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
-
+from os import getenv
 
 place_amenity = Table(
     'place_amenity',
@@ -85,3 +86,29 @@ class Place(BaseModel, Base):
     # TODO create relation with Review
     reviews = relationship("Review", backref="place", cascade="all, delete")
     amenities = relationship("Amenity", secondary=place_amenity)
+
+    amenity_ids = []
+
+    if getenv("HBNB_TYPE_STORAGE", None) != "db":
+        @property
+        def reviews(self):
+            """Get a list of all linked Reviews."""
+            reviews = []
+            for review in list(models.storage.all(Review).values()):
+                if review.place_id == self.id:
+                    reviews.append(review)
+            return reviews
+
+        @property
+        def amenities(self):
+            """Get/set linked Amenities."""
+            amenities = []
+            for amenity in list(models.storage.all(Amenity).values()):
+                if amenity.id in self.amenity_ids:
+                    amenities.append(amenity)
+            return amenities
+
+        @amenities.setter
+        def amenities(self, value):
+            if type(value) == Amenity:
+                self.amenity_ids.append(value.id)
